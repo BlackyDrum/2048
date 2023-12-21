@@ -19,6 +19,8 @@ let backgrounds = {
   2048: [237, 194, 46],
 };
 
+let score = 0;
+
 function setup() {
   let canvas = createCanvas(600, 600);
 
@@ -138,6 +140,8 @@ function combine(row) {
     if (a === b) {
       row[i] = a + b;
       row[i - 1] = 0;
+      score += row[i];
+      document.getElementById("score").innerHTML = score;
     }
   }
   return row;

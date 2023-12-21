@@ -20,7 +20,9 @@ let backgrounds = {
 };
 
 function setup() {
-  createCanvas(600, 600);
+  let canvas = createCanvas(600, 600);
+
+  canvas.style("border", "10px solid #BBADA0");
 
   addNumber();
   addNumber();
@@ -31,7 +33,7 @@ function draw() {
 
   for (let i = 0; i < 4; i++) {
     for (let j = 0; j < 4; j++) {
-      strokeWeight(10);
+      strokeWeight(15);
       stroke(187, 173, 160);
       if (grid[i][j] === 0) {
         fill(205, 193, 180);

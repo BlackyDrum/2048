@@ -5,8 +5,25 @@ let grid = [
   [0, 0, 0, 0],
 ];
 
+let backgrounds = {
+  2: [238, 228, 218],
+  4: [237, 224, 200],
+  8: [242, 177, 121],
+  16: [245, 149, 99],
+  32: [246, 124, 95],
+  64: [246, 94, 59],
+  128: [237, 207, 114],
+  256: [237, 204, 97],
+  512: [237, 200, 80],
+  1024: [237, 197, 63],
+  2048: [237, 194, 46],
+};
+
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(600, 600);
+
+  addNumber();
+  addNumber();
 }
 
 function draw() {
@@ -14,11 +31,24 @@ function draw() {
 
   for (let i = 0; i < 4; i++) {
     for (let j = 0; j < 4; j++) {
-      rect(i * 100, j * 100, 100, 100, 20);
+      strokeWeight(10);
+      stroke(187, 173, 160);
+      if (grid[i][j] === 0) {
+        fill(205, 193, 180);
+      } else {
+        fill(backgrounds[grid[i][j]]);
+      }
+      rect(i * 150, j * 150, 150, 150);
+      strokeWeight(1);
+      stroke(0);
       if (grid[i][j] !== 0) {
         textAlign(CENTER, CENTER);
         textSize(64);
-        text(grid[i][j], i * 100 + 50, j * 100 + 50);
+        textStyle(BOLD);
+        fill(119, 110, 101);
+        noStroke();
+        text(grid[i][j], i * 150 + 75, j * 150 + 75);
+        noFill();
       }
     }
   }
@@ -44,8 +74,69 @@ function addNumber() {
   }
 }
 
+function slide(row) {
+  let arr = row.filter((val) => val);
+  let missing = 4 - arr.length;
+  let zeros = Array(missing).fill(0);
+  arr = zeros.concat(arr);
+  return arr;
+}
+
 function keyPressed() {
-  if (key === " ") {
+  let keys = ["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft"];
+
+  let old = JSON.stringify(grid);
+
+  if (key === "ArrowDown") {
+    for (let i = 0; i < 4; i++) {
+      grid[i] = combine(grid[i]);
+      grid[i] = slide(grid[i]);
+    }
+  } else if (key === "ArrowUp") {
+    for (let i = 0; i < 4; i++) {
+      grid[i] = combine(grid[i].reverse()).reverse();
+      grid[i] = slide(grid[i].reverse()).reverse();
+    }
+  } else if (key === "ArrowRight") {
+    grid = transpose(grid);
+    for (let i = 0; i < 4; i++) {
+      grid[i] = combine(grid[i]);
+      grid[i] = slide(grid[i]);
+    }
+    grid = transpose(grid);
+  } else if (key === "ArrowLeft") {
+    grid = transpose(grid);
+    for (let i = 0; i < 4; i++) {
+      grid[i] = combine(grid[i].reverse()).reverse();
+      grid[i] = slide(grid[i].reverse()).reverse();
+    }
+    grid = transpose(grid);
+  }
+
+  if (keys.includes(key) && old !== JSON.stringify(grid)) {
     addNumber();
   }
+}
+
+function transpose(matrix) {
+  let temp = [];
+  for (let i = 0; i < 4; i++) {
+    temp.push([]);
+    for (let j = 0; j < 4; j++) {
+      temp[i].push(matrix[j][i]);
+    }
+  }
+  return temp;
+}
+
+function combine(row) {
+  for (let i = 3; i >= 1; i--) {
+    let a = row[i];
+    let b = row[i - 1];
+    if (a === b) {
+      row[i] = a + b;
+      row[i - 1] = 0;
+    }
+  }
+  return row;
 }

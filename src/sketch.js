@@ -6,6 +6,7 @@ let grid = [
 ];
 
 let backgrounds = {
+  0: [205, 193, 180],
   2: [238, 228, 218],
   4: [237, 224, 200],
   8: [242, 177, 121],
@@ -37,11 +38,7 @@ function draw() {
     for (let j = 0; j < 4; j++) {
       strokeWeight(15);
       stroke(187, 173, 160);
-      if (grid[i][j] === 0) {
-        fill(205, 193, 180);
-      } else {
-        fill(backgrounds[grid[i][j]]);
-      }
+      fill(backgrounds[grid[i][j]]);
       rect(i * 150, j * 150, 150, 150);
       strokeWeight(1);
       stroke(0);

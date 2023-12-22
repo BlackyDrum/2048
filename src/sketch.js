@@ -93,17 +93,20 @@ function keyPressed() {
 
   if (key === "ArrowDown") {
     for (let i = 0; i < 4; i++) {
+      grid[i] = slide(grid[i]);
       grid[i] = combine(grid[i]);
       grid[i] = slide(grid[i]);
     }
   } else if (key === "ArrowUp") {
     for (let i = 0; i < 4; i++) {
+      grid[i] = slide(grid[i].reverse()).reverse();
       grid[i] = combine(grid[i].reverse()).reverse();
       grid[i] = slide(grid[i].reverse()).reverse();
     }
   } else if (key === "ArrowRight") {
     grid = transpose(grid);
     for (let i = 0; i < 4; i++) {
+      grid[i] = slide(grid[i]);
       grid[i] = combine(grid[i]);
       grid[i] = slide(grid[i]);
     }
@@ -111,6 +114,7 @@ function keyPressed() {
   } else if (key === "ArrowLeft") {
     grid = transpose(grid);
     for (let i = 0; i < 4; i++) {
+      grid[i] = slide(grid[i].reverse()).reverse();
       grid[i] = combine(grid[i].reverse()).reverse();
       grid[i] = slide(grid[i].reverse()).reverse();
     }

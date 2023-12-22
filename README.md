@@ -2,7 +2,8 @@
 
 **A simple implementation of the classic 2048 game in `P5.js`!**
 
-![image](https://github.com/BlackyDrum/2048/assets/111639941/45f2f6fc-fadd-488c-a77d-9ca34e0e1ae0)
+![2048-demo](https://github.com/BlackyDrum/2048/assets/111639941/0314b434-f2fe-45ed-94ec-0a8c3a05aa94)
+
 
 ## Demo
 https://blackydrum.github.io/2048/

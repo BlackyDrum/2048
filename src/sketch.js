@@ -52,6 +52,16 @@ function draw() {
       }
     }
   }
+
+  if (isGameOver()) {
+    textAlign(CENTER);
+    textSize(64);
+    textStyle(BOLD);
+    fill(119, 110, 101);
+    noStroke();
+    text("GAME OVER", width / 2, height / 2);
+    noLoop();
+  }
 }
 
 function addNumber() {
@@ -120,6 +130,34 @@ function keyPressed() {
   if (keys.includes(key) && old !== JSON.stringify(grid)) {
     addNumber();
   }
+}
+
+function isGameOver() {
+  let gameOver = true;
+  for (let i = 0; i < 4; i++) {
+    if (grid[i].includes(0)) {
+      gameOver = false;
+    }
+  }
+  if (gameOver) {
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (grid[i][j] === grid[i][j + 1]) {
+          gameOver = false;
+        }
+      }
+    }
+  }
+  if (gameOver) {
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 4; j++) {
+        if (grid[i][j] === grid[i + 1][j]) {
+          gameOver = false;
+        }
+      }
+    }
+  }
+  return gameOver;
 }
 
 function transpose(matrix) {

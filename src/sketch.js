@@ -1,10 +1,3 @@
-let grid = [
-  [0, 0, 0, 0],
-  [0, 0, 0, 0],
-  [0, 0, 0, 0],
-  [0, 0, 0, 0],
-];
-
 const backgrounds = {
   0: [205, 193, 180],
   2: [238, 228, 218],
@@ -21,6 +14,13 @@ const backgrounds = {
 };
 
 const storageName = "blackydrum_2048_highscore";
+
+let grid = [
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+];
 
 let score = 0;
 let highscore = 0;
@@ -49,10 +49,13 @@ function restart() {
     [0, 0, 0, 0],
     [0, 0, 0, 0],
   ];
+
   score = 0;
   document.getElementById("score").innerHTML = score;
+
   addNumber();
   addNumber();
+
   loop();
 }
 
@@ -62,9 +65,8 @@ function draw() {
       strokeWeight(15);
       stroke(187, 173, 160);
       fill(backgrounds[grid[i][j]]);
-      rect(i * 150, j * 150, 150, 150);
-      strokeWeight(1);
-      stroke(0);
+      rect(i * (width / 4), j * (height / 4), width / 4, height / 4);
+
       if (grid[i][j] !== 0) {
         textAlign(CENTER, CENTER);
         textSize(64);
@@ -74,33 +76,18 @@ function draw() {
           fill(249, 246, 242);
         }
         noStroke();
-        text(grid[i][j], i * 150 + 75, j * 150 + 75);
-        noFill();
+        text(grid[i][j], i * (width / 4) + width / 4 / 2, j * (height / 4) + height / 4 / 2);
       }
     }
   }
 
-  if (isWin()) {
+  if (isWin() || isGameOver()) {
     textAlign(CENTER);
     textSize(64);
     textStyle(BOLD);
     fill(119, 110, 101);
     noStroke();
-    text("YOU WIN", width / 2, height / 2);
-    noLoop();
-
-    if (score > highscore) {
-      highscore = score;
-      document.getElementById("highscore").innerHTML = highscore;
-      window.localStorage.setItem(storageName, highscore);
-    }
-  } else if (isGameOver()) {
-    textAlign(CENTER);
-    textSize(64);
-    textStyle(BOLD);
-    fill(119, 110, 101);
-    noStroke();
-    text("GAME OVER", width / 2, height / 2);
+    text(isWin() ? "YOU WIN" : "GAME OVER", width / 2, height / 2);
     noLoop();
 
     if (score > highscore) {

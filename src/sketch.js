@@ -5,7 +5,7 @@ let grid = [
   [0, 0, 0, 0],
 ];
 
-let backgrounds = {
+const backgrounds = {
   0: [205, 193, 180],
   2: [238, 228, 218],
   4: [237, 224, 200],
@@ -20,6 +20,8 @@ let backgrounds = {
   2048: [237, 194, 46],
 };
 
+const storageName = "blackydrum_2048_highscore";
+
 let score = 0;
 let highscore = 0;
 
@@ -28,6 +30,13 @@ function setup() {
 
   canvas.style("border", "10px solid #BBADA0");
   canvas.style("border-radius", "5px");
+
+  highscore = Number.parseInt(window.localStorage.getItem(storageName));
+  if (isNaN(highscore)) {
+    highscore = 0;
+  } else {
+    document.getElementById("highscore").innerHTML = highscore;
+  }
 
   addNumber();
   addNumber();
@@ -68,7 +77,21 @@ function draw() {
     }
   }
 
-  if (isGameOver()) {
+  if (isWin()) {
+    textAlign(CENTER);
+    textSize(64);
+    textStyle(BOLD);
+    fill(119, 110, 101);
+    noStroke();
+    text("YOU WIN", width / 2, height / 2);
+    noLoop();
+
+    if (score > highscore) {
+      highscore = score;
+      document.getElementById("highscore").innerHTML = highscore;
+      window.localStorage.setItem(storageName, highscore);
+    }
+  } else if (isGameOver()) {
     textAlign(CENTER);
     textSize(64);
     textStyle(BOLD);
@@ -80,6 +103,7 @@ function draw() {
     if (score > highscore) {
       highscore = score;
       document.getElementById("highscore").innerHTML = highscore;
+      window.localStorage.setItem(storageName, highscore);
     }
   }
 }
@@ -178,6 +202,15 @@ function isGameOver() {
     }
   }
   return gameOver;
+}
+
+function isWin() {
+  for (let i = 0; i < 4; i++) {
+    if (grid[i].includes(2048)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 function transpose(matrix) {

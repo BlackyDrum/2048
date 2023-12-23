@@ -137,23 +137,23 @@ function slide(row) {
 }
 
 function keyPressed() {
-  let keys = ["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft"];
+  let keys = ["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft", "s", "w", "d", "a"];
 
   let old = JSON.stringify(grid);
 
-  if (key === "ArrowDown") {
+  if (key === "ArrowDown" || key === "s") {
     for (let i = 0; i < 4; i++) {
       grid[i] = slide(grid[i]);
       grid[i] = combine(grid[i]);
       grid[i] = slide(grid[i]);
     }
-  } else if (key === "ArrowUp") {
+  } else if (key === "ArrowUp" || key === "w") {
     for (let i = 0; i < 4; i++) {
       grid[i] = slide(grid[i].reverse()).reverse();
       grid[i] = combine(grid[i].reverse()).reverse();
       grid[i] = slide(grid[i].reverse()).reverse();
     }
-  } else if (key === "ArrowRight") {
+  } else if (key === "ArrowRight" || key === "d") {
     grid = transpose(grid);
     for (let i = 0; i < 4; i++) {
       grid[i] = slide(grid[i]);
@@ -161,7 +161,7 @@ function keyPressed() {
       grid[i] = slide(grid[i]);
     }
     grid = transpose(grid);
-  } else if (key === "ArrowLeft") {
+  } else if (key === "ArrowLeft " || key === "a") {
     grid = transpose(grid);
     for (let i = 0; i < 4; i++) {
       grid[i] = slide(grid[i].reverse()).reverse();

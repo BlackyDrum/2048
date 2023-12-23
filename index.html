@@ -21,6 +21,35 @@
       }
       .score {
         background-color: #bbada0;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        align-self: center;
+        border-radius: 0.5rem;
+        border-width: 1px;
+        font-size: 1.5rem;
+        line-height: 2rem;
+        font-weight: 700;
+      }
+
+      .highscore {
+        background-color: #bbada0;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+        align-self: center;
+        border-radius: 0.5rem;
+        border-width: 1px;
+        font-size: 1.5rem;
+        line-height: 2rem;
+        font-weight: 700;
+      }
+
+      .restart {
+        background-color: #8f7a66;
+        color: white;
       }
     </style>
     <script src="src/p5.min.js"></script>
@@ -28,33 +57,42 @@
   </head>
 
   <body>
-    <div class="grid grid-cols-3">
-      <div></div>
-      <div>
-        <div class="grid-grid-rows-3">
-          <div class="grid grid-cols-2">
-            <div class="ml-5 mt-25 mb-10">
-              <div class="title">2048</div>
-              <div>Join the tiles, get to <span class="font-bold">2048!</span></div>
-            </div>
-            <div class="self-center mx-auto border px-10 py-2 rounded-lg score font-bold text-2xl">
+    <div class="flex">
+      <div class="mx-auto">
+        <div class="grid grid-cols-2">
+          <h1 class="title">2048</h1>
+          <div class="flex self-center gap-2 ml-auto">
+            <div class="score">
               Score
               <div class="text-center">
                 <span class="text-white" id="score">0</span>
               </div>
             </div>
-          </div>
-          <div class="flex h-[100%]">
-            <main class="my-auto mx-auto"></main>
-          </div>
-          <div>
-            <div class="text-center mt-10 font-bold">
-              <a class="underline" href="https://github.com/BlackyDrum/2048">Github</a>
+
+            <div class="highscore">
+              Best
+              <div class="text-center">
+                <span class="text-white" id="highscore">0</span>
+              </div>
             </div>
           </div>
         </div>
+
+        <div class="flex mb-8 mt-4">
+          <div class="my-auto">Join the tiles, get to <span class="font-bold">2048!</span></div>
+          <div class="ml-auto restart font-bold py-2 px-5 rounded-lg">
+            <button>New Game</button>
+          </div>
+        </div>
+
+        <main></main>
       </div>
-      <div></div>
+    </div>
+
+    <div class="flex mt-10 font-bold">
+      <a class="underline mx-auto" target="_blank" href="https://github.com/BlackyDrum/2048"
+        >Github</a
+      >
     </div>
   </body>
 </html>

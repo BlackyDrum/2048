@@ -21,6 +21,7 @@ let backgrounds = {
 };
 
 let score = 0;
+let highscore = 0;
 
 function setup() {
   let canvas = createCanvas(600, 600);
@@ -30,6 +31,20 @@ function setup() {
 
   addNumber();
   addNumber();
+}
+
+function restart() {
+  grid = [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ];
+  score = 0;
+  document.getElementById("score").innerHTML = score;
+  addNumber();
+  addNumber();
+  loop();
 }
 
 function draw() {
@@ -61,6 +76,11 @@ function draw() {
     noStroke();
     text("GAME OVER", width / 2, height / 2);
     noLoop();
+
+    if (score > highscore) {
+      highscore = score;
+      document.getElementById("highscore").innerHTML = highscore;
+    }
   }
 }
 

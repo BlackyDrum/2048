@@ -59,7 +59,7 @@
   <body>
     <div class="flex">
       <div class="mx-auto">
-        <div class="grid grid-cols-2">
+        <div class="flex">
           <h1 class="title">2048</h1>
           <div class="flex self-center gap-2 ml-auto">
             <div class="score">
@@ -81,7 +81,7 @@
         <div class="flex mb-8 mt-4">
           <div class="my-auto">Join the tiles, get to <span class="font-bold">2048!</span></div>
           <div class="ml-auto restart font-bold py-2 px-5 rounded-lg">
-            <button>New Game</button>
+            <button id="restart">New Game</button>
           </div>
         </div>
 
@@ -95,4 +95,12 @@
       >
     </div>
   </body>
+
+  <script>
+    document.getElementById("restart").addEventListener("click", () => {
+      if (confirm("Are you sure you want to start a new game? All progress will be lost.")) {
+        restart();
+      }
+    });
+  </script>
 </html>

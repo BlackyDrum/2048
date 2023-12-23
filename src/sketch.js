@@ -70,6 +70,9 @@ function draw() {
         textSize(64);
         textStyle(BOLD);
         fill(119, 110, 101);
+        if (grid[i][j] >= 8) {
+          fill(249, 246, 242);
+        }
         noStroke();
         text(grid[i][j], i * 150 + 75, j * 150 + 75);
         noFill();

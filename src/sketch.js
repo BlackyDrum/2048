@@ -26,6 +26,7 @@ function setup() {
   let canvas = createCanvas(600, 600);
 
   canvas.style("border", "10px solid #BBADA0");
+  canvas.style("border-radius", "5px");
 
   addNumber();
   addNumber();

@@ -161,7 +161,7 @@ function keyPressed() {
       grid[i] = slide(grid[i]);
     }
     grid = transpose(grid);
-  } else if (key === "ArrowLeft " || key === "a") {
+  } else if (key === "ArrowLeft" || key === "a") {
     grid = transpose(grid);
     for (let i = 0; i < 4; i++) {
       grid[i] = slide(grid[i].reverse()).reverse();

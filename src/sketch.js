@@ -127,6 +127,10 @@ function slide(row) {
 }
 
 function keyPressed() {
+  operate(key);
+}
+
+function operate(key) {
   let keys = ["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft", "s", "w", "d", "a"];
 
   let old = JSON.stringify(grid);
@@ -226,4 +230,41 @@ function combine(row) {
     }
   }
   return row;
+}
+
+// add function for touch screen
+function touchStarted() {
+  startX = mouseX;
+  startY = mouseY;
+}
+
+function touchEnded() {
+  let deltaX = mouseX - startX;
+  let deltaY = mouseY - startY;
+
+  if (deltaX === 0 && deltaY === 0) {
+    return;
+  }
+
+  if (abs(deltaX) > abs(deltaY)) {
+    if (deltaX > 0) {
+      // right
+      operate("ArrowRight");
+    } else {
+      // left
+      operate("ArrowLeft");
+    }
+  } else {
+    if (deltaY > 0) {
+      // down
+      operate("ArrowDown");
+    } else {
+      // up
+      operate("ArrowUp");
+    }
+  }
+}
+
+function touchMoved() {
+  return false;
 }

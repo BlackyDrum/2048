@@ -232,7 +232,6 @@ function combine(row) {
   return row;
 }
 
-// add function for touch screen
 function touchStarted() {
   startX = mouseX;
   startY = mouseY;
@@ -248,18 +247,14 @@ function touchEnded() {
 
   if (abs(deltaX) > abs(deltaY)) {
     if (deltaX > 0) {
-      // right
       operate("ArrowRight");
     } else {
-      // left
       operate("ArrowLeft");
     }
   } else {
     if (deltaY > 0) {
-      // down
       operate("ArrowDown");
     } else {
-      // up
       operate("ArrowUp");
     }
   }

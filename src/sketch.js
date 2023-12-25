@@ -25,6 +25,8 @@ let grid = [
 let score = 0;
 let highscore = 0;
 
+let continued = false;
+
 function setup() {
   let canvas = createCanvas(600, 600);
 
@@ -42,6 +44,14 @@ function setup() {
   addNumber();
 }
 
+function continueGame() {
+  continued = true;
+
+  document.getElementsByClassName("continue")[0].style.display = "none";
+
+  loop();
+}
+
 function restart() {
   grid = [
     [0, 0, 0, 0],
@@ -52,6 +62,10 @@ function restart() {
 
   score = 0;
   document.getElementById("score").innerHTML = score;
+
+  document.getElementsByClassName("continue")[0].style.display = "none";
+
+  continued = false;
 
   addNumber();
   addNumber();
@@ -81,14 +95,18 @@ function draw() {
     }
   }
 
-  if (isGameOver()) {
+  if ((isWin() || isGameOver()) && !continued) {
     textAlign(CENTER);
     textSize(64);
     textStyle(BOLD);
     fill(119, 110, 101);
     noStroke();
-    text("GAME OVER", width / 2, height / 2);
+    text(isWin() ? "YOU WIN" : "GAME OVER", width / 2, height / 2);
     noLoop();
+
+    if (isWin()) {
+      document.getElementsByClassName("continue")[0].style.display = "initial";
+    }
 
     if (score > highscore) {
       highscore = score;
@@ -131,6 +149,10 @@ function keyPressed() {
 }
 
 function operate(key) {
+  if ((isWin() || isGameOver()) && !continued) {
+    return;
+  }
+
   let keys = ["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft", "s", "w", "d", "a"];
 
   let old = JSON.stringify(grid);
@@ -198,8 +220,6 @@ function isGameOver() {
   return gameOver;
 }
 
-/*
-
 function isWin() {
   for (let i = 0; i < 4; i++) {
     if (grid[i].includes(2048)) {
@@ -208,8 +228,6 @@ function isWin() {
   }
   return false;
 }
-
-*/
 
 function transpose(matrix) {
   let temp = [];

@@ -13,7 +13,8 @@ const backgrounds = {
   2048: [237, 194, 46],
 };
 
-const storageName = "blackydrum_2048_highscore";
+const storageName = "highscore";
+const gameState = "gameState";
 
 let grid = [
   [0, 0, 0, 0],
@@ -40,8 +41,19 @@ function setup() {
     document.getElementById("highscore").innerHTML = highscore;
   }
 
-  addNumber();
-  addNumber();
+  let state = localStorage.getItem(gameState);
+
+  if (state) {
+    state = JSON.parse(state);
+    grid = JSON.parse(state.grid);
+    score = Number.parseInt(state.score);
+    continued = JSON.parse(state.win);
+
+    document.getElementById("score").innerHTML = score;
+  } else {
+    addNumber();
+    addNumber();
+  }
 }
 
 function continueGame() {
@@ -70,6 +82,15 @@ function restart() {
   addNumber();
   addNumber();
 
+  localStorage.setItem(
+    gameState,
+    JSON.stringify({
+      grid: JSON.stringify(grid),
+      score: score,
+      win: continued,
+    })
+  );
+
   loop();
 }
 
@@ -95,16 +116,16 @@ function draw() {
     }
   }
 
-  if ((isWin() || isGameOver()) && !continued) {
+  if ((isWin() && !continued) || isGameOver()) {
     textAlign(CENTER);
     textSize(64);
     textStyle(BOLD);
     fill(119, 110, 101);
     noStroke();
-    text(isWin() ? "YOU WIN" : "GAME OVER", width / 2, height / 2);
+    text(isWin() && !continued ? "YOU WIN" : "GAME OVER", width / 2, height / 2);
     noLoop();
 
-    if (isWin()) {
+    if (isWin() && !continued) {
       document.getElementsByClassName("continue")[0].style.display = "initial";
     }
 
@@ -190,6 +211,15 @@ function operate(key) {
   if (keys.includes(key) && old !== JSON.stringify(grid)) {
     addNumber();
   }
+
+  localStorage.setItem(
+    gameState,
+    JSON.stringify({
+      grid: JSON.stringify(grid),
+      score: score,
+      win: continued,
+    })
+  );
 }
 
 function isGameOver() {

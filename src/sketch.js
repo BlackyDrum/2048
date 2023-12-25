@@ -13,8 +13,8 @@ const backgrounds = {
   2048: [237, 194, 46],
 };
 
-const storageName = "highscore";
-const gameState = "gameState";
+const highscoreLS = "highscore";
+const gameStateLS = "gameState";
 
 let grid = [
   [0, 0, 0, 0],
@@ -34,14 +34,14 @@ function setup() {
   canvas.style("border", "10px solid #BBADA0");
   canvas.style("border-radius", "5px");
 
-  highscore = Number.parseInt(window.localStorage.getItem(storageName));
+  highscore = Number.parseInt(window.localStorage.getItem(highscoreLS));
   if (isNaN(highscore)) {
     highscore = 0;
   } else {
     document.getElementById("highscore").innerHTML = highscore;
   }
 
-  let state = localStorage.getItem(gameState);
+  let state = localStorage.getItem(gameStateLS);
 
   if (state) {
     state = JSON.parse(state);
@@ -83,7 +83,7 @@ function restart() {
   addNumber();
 
   localStorage.setItem(
-    gameState,
+    gameStateLS,
     JSON.stringify({
       grid: JSON.stringify(grid),
       score: score,
@@ -132,7 +132,7 @@ function draw() {
     if (score > highscore) {
       highscore = score;
       document.getElementById("highscore").innerHTML = highscore;
-      window.localStorage.setItem(storageName, highscore);
+      window.localStorage.setItem(highscoreLS, highscore);
     }
   }
 }
@@ -213,7 +213,7 @@ function operate(key) {
   }
 
   localStorage.setItem(
-    gameState,
+    gameStateLS,
     JSON.stringify({
       grid: JSON.stringify(grid),
       score: score,

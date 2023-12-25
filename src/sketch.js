@@ -64,7 +64,7 @@ function draw() {
     for (let j = 0; j < 4; j++) {
       strokeWeight(15);
       stroke(187, 173, 160);
-      fill(backgrounds[grid[i][j]]);
+      fill(backgrounds[grid[i][j]] || [237, 194, 46]);
       rect(i * (width / 4), j * (height / 4), width / 4, height / 4);
 
       if (grid[i][j] !== 0) {
@@ -81,13 +81,13 @@ function draw() {
     }
   }
 
-  if (isWin() || isGameOver()) {
+  if (isGameOver()) {
     textAlign(CENTER);
     textSize(64);
     textStyle(BOLD);
     fill(119, 110, 101);
     noStroke();
-    text(isWin() ? "YOU WIN" : "GAME OVER", width / 2, height / 2);
+    text("GAME OVER", width / 2, height / 2);
     noLoop();
 
     if (score > highscore) {
@@ -198,6 +198,8 @@ function isGameOver() {
   return gameOver;
 }
 
+/*
+
 function isWin() {
   for (let i = 0; i < 4; i++) {
     if (grid[i].includes(2048)) {
@@ -206,6 +208,8 @@ function isWin() {
   }
   return false;
 }
+
+*/
 
 function transpose(matrix) {
   let temp = [];
